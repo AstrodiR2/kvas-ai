@@ -38,18 +38,14 @@ AEROLINK_KEYS = load_keys("AEROLINK_KEYS")
 FREEMODEL_BASE = "https://cc.freemodel.dev"
 
 FREEMODEL_MODELS = [
-    "claude-fable-5",
+    "claude-opus-4-8",
     "claude-opus-4-7",
+    "claude-fable-5",
     "claude-sonnet-4-6",
-    "gpt-5.5",
-    "gpt-5.5-pro",
-    "gpt-5.4",
-    "gpt-5.4-mini",
-    "zhipuai/glm-5.2",
-    "moonshotai/kimi-k2.6",
-    "moonshotai/kimi-k2.7",
+    "claude-opus-4-6",
+    "claude-haiku-4-5-20251001",
 ]
-AEROLINK_BASE = "https://evolink.ai"
+AEROLINK_BASE = "https://capi.aerolink.lat"
 
 MODELS = {
     # Groq
