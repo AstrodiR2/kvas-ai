@@ -45,7 +45,7 @@ FREEMODEL_MODELS = [
     "claude-opus-4-6",
     "claude-haiku-4-5-20251001",
 ]
-AEROLINK_BASE = "https://capi.aerolink.lat"
+AEROLINK_BASE = "https://capi.aerolink.lat/v1"
 
 MODELS = {
     # Groq
@@ -240,15 +240,15 @@ async def anthropic_messages(request: Request, authorization: Optional[str] = He
     check_auth(authorization)
     body = await request.json()
     stream = body.get("stream", False)
-    extra_headers = {"anthropic-version": request.headers.get("anthropic-version", "2023-06-01")}
+    extra_headers = {
+        "anthropic-version": request.headers.get("anthropic-version", "2023-06-01"),
+        "user-agent": "claude-code/1.0",
+    }
 
-    # Try aerolink first, then freemodel
+    # Only aerolink for Anthropic-compatible endpoint
     if AEROLINK_KEYS:
         keys = shuffled_keys("aerolink")
         url = f"{AEROLINK_BASE}/messages"
-    elif FREEMODEL_KEYS:
-        keys = shuffled_keys("freemodel")
-        url = f"{FREEMODEL_BASE}/messages"
     else:
         raise HTTPException(status_code=503, detail="No Anthropic-compatible keys configured")
 
