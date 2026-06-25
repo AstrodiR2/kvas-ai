@@ -35,7 +35,20 @@ BLUESMINDS_KEYS = load_keys("BLUESMINDS_KEYS")
 FREEMODEL_KEYS = load_keys("FREEMODEL_KEYS")
 AEROLINK_KEYS = load_keys("AEROLINK_KEYS")
 
-FREEMODEL_BASE = "https://cc.freemodel.dev/v1"
+FREEMODEL_BASE = "https://cc.freemodel.dev"
+
+FREEMODEL_MODELS = [
+    "claude-fable-5",
+    "claude-opus-4-7",
+    "claude-sonnet-4-6",
+    "gpt-5.5",
+    "gpt-5.5-pro",
+    "gpt-5.4",
+    "gpt-5.4-mini",
+    "zhipuai/glm-5.2",
+    "moonshotai/kimi-k2.6",
+    "moonshotai/kimi-k2.7",
+]
 AEROLINK_BASE = "https://evolink.ai"
 
 MODELS = {
@@ -167,6 +180,12 @@ async def list_models(authorization: Optional[str] = Header(None)):
     for mid in AEROLINK_MODELS:
         if mid not in existing_ids:
             data.append({"id": mid, "object": "model", "created": 1626777600, "owned_by": "KvasAI"})
+            existing_ids.add(mid)
+
+    # Add freemodel static models
+    for mid in FREEMODEL_MODELS:
+        if mid not in existing_ids:
+            data.append({"id": mid, "object": "model", "created": 1700000000, "owned_by": "KvasAI"})
             existing_ids.add(mid)
 
     # Fetch freemodel models dynamically
